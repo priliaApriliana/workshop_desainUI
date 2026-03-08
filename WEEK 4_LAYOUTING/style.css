@@ -1,0 +1,657 @@
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --navy:       #002147;
+  --gold:       #C8A84B;
+  --gold-light: #F0D98C;
+  --cream:      #FAF7F0;
+  --white:      #FFFFFF;
+  --gray:       #6B7280;
+  --gray-light: #F3F4F6;
+  --shadow:     0 4px 24px rgba(0, 33, 71, 0.10);
+  --radius:     14px;
+}
+
+body {
+  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--navy);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* =====================================================
+   HEADER — Flexbox
+   ===================================================== */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--navy);
+  padding: 14px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Brand: logo + teks berdampingan (Flexbox) */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.brand-tagline {
+  font-size: 1rem;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+
+/* Nav: link-link sejajar (Flexbox) */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.site-nav a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--gold-light);
+}
+
+.site-nav .nav-cta {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+  padding: 7px 18px;
+  border-radius: 8px;
+}
+
+.site-nav .nav-cta:hover {
+  background: var(--gold-light);
+  color: var(--navy);
+}
+
+/* =====================================================
+   HERO BANNER
+   ===================================================== */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 33, 71, 0.78) 40%, rgba(200, 168, 75, 0.35) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-overlay h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.hero-overlay h1 span {
+  color: var(--gold-light);
+}
+
+.hero-overlay p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.05rem;
+}
+
+/* =====================================================
+   PAGE GRID — CSS Grid (main requirement)
+   ===================================================== */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-areas: "main sidebar";
+  gap: 28px;
+  width: 100%;
+  margin: 40px 0;
+  padding: 0 40px;
+}
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+.main-content {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Card-like sections */
+.card-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200, 168, 75, 0.18);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--gold);
+  display: inline-block;
+}
+
+.card-section p {
+  margin-bottom: 14px;
+  color: #374151;
+  font-size: 0.97rem;
+}
+
+.card-section a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Stat Row — Flexbox */
+.stat-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 100px;
+  background: linear-gradient(135deg, var(--navy), #003570);
+  border-radius: 12px;
+  padding: 18px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--gold-light);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Platform Grid — CSS Grid inside section */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.platform-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 14px;
+  background: var(--gray-light);
+  border-radius: 12px;
+  border: 2px solid transparent;
+  text-align: center;
+  color: var(--navy);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.platform-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(200, 168, 75, 0.2);
+  color: var(--navy);
+}
+
+.platform-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.youtube-icon {
+  background: #FF0000;
+  color: white;
+  width: 60px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 1.4rem;
+}
+
+.platform-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.platform-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* Video */
+.video-wrapper {
+  position: relative;
+  width: 75%;
+  margin: 12px auto 0;
+  padding-bottom: 42.18%; /* 56.25% of 75% */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 33, 71, 0.18);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+/* =====================================================
+   SIDEBAR — CSS Grid area
+   ===================================================== */
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-widget {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--gold);
+}
+
+.widget-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+/* News list */
+.news-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.news-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.news-date {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.news-list a {
+  font-size: 0.85rem;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+.news-list a:hover {
+  color: var(--gold);
+}
+
+/* Faculty list */
+.faculty-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faculty-list li {
+  font-size: 0.88rem;
+  padding: 7px 12px;
+  background: var(--gray-light);
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  color: var(--navy);
+}
+
+/* Calendar list */
+.calendar-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.cal-tag {
+  background: var(--navy);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* Contact widget */
+.sidebar-contact p {
+  font-size: 0.85rem;
+  color: #374151;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   FOOTER — Flexbox
+   ===================================================== */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 60px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 32px;
+  width: 100%;
+  padding: 48px 40px 32px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 240px;
+}
+
+.footer-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.footer-univ-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.footer-founding {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+.footer-brand p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-brand em {
+  color: var(--gold-light);
+}
+
+.footer-links h4,
+.footer-social h4,
+.footer-contact-col h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+}
+
+.footer-contact-col {
+  min-width: 180px;
+}
+
+.footer-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-contact-list li {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--gold-light);
+}
+
+footer {
+  grid-area: footer;
+}
+
+/* Social icons — Flexbox */
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-btn {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid rgba(200, 168, 75, 0.45);
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.social-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+/* Footer bottom bar */
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 18px 24px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+.footer-bottom p::after {
+  content: " ·";
+  margin-left: 8px;
+}
+
+.footer-bottom p:last-child::after {
+  content: "";
+}
+
+/* =====================================================
+   RESPONSIVE — Tablet & Mobile
+   ===================================================== */
+@media (max-width: 900px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main sidebar"
+      "footer footer";
+  }
+
+  .platform-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero-overlay h1 {
+    font-size: 1.6rem;
+  }
+
+  .page-grid {
+    padding: 0 20px;
+    margin: 24px auto;
+  }
+
+  .card-section {
+    padding: 22px 18px;
+  }
+
+  .stat-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
