@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pustaka Digital — Perpustakaan Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --brown:  #493129;
+      --mauve:  #8b597b;
+      --pink:   #efa3a0;
+      --peach:  #ffdec7;
+      --cream:  #fde5b0;
+      --bg:     #fdf7f0;
+      --white:  #fffcf8;
+      --text:   #2e1f18;
+      --text2:  #7a5260;
+      --text3:  #b08898;
+      --bdr:    rgba(139,89,123,0.14);
+      --bdr2:   rgba(139,89,123,0.26);
+      --r:16px; --rsm:10px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+    /*  SCROLLBAR  */
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--peach);border-radius:3px}
+
+    /* NAV  */
+    nav{
+      position:sticky;top:0;z-index:99;
+      background:var(--brown);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 2.5rem;height:62px;
+      box-shadow:0 2px 20px rgba(73,49,41,0.25);
+    }
+    .logo{
+      font-family:'Cormorant Garamond',serif;
+      font-size:22px;font-weight:700;letter-spacing:0.5px;
+      color:var(--cream);display:flex;align-items:center;gap:10px;
+    }
+    .logo-icon{
+      width:32px;height:32px;background:var(--mauve);
+      border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;
+    }
+    .logo-icon svg{width:18px;height:18px}
+    .logo span{color:var(--pink)}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .nav-btn{
+      background:transparent;border:1px solid rgba(255,222,199,0.3);
+      color:rgba(255,222,199,0.75);padding:6px 16px;border-radius:var(--rsm);
+      font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;
+    }
+    .nav-btn:hover{background:rgba(255,222,199,0.1);color:var(--cream)}
+    .nav-btn.active{background:var(--mauve);border-color:var(--mauve);color:#fff}
+
+    /* HERO  */
+    .hero{
+      background:linear-gradient(150deg, var(--brown) 0%, #6b3a5a 50%, var(--pink) 100%);
+      padding:5rem 2.5rem 4.5rem;position:relative;overflow:hidden;
+      text-align:center;
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fde5b0' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events:none;
+    }
+    .hero::after{
+      content:'';position:absolute;
+      width:500px;height:500px;
+      background:radial-gradient(circle, rgba(253,229,176,0.15) 0%, transparent 70%);
+      top:-100px;right:-100px;pointer-events:none;
+    }
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(255,222,199,0.18);border:1px solid rgba(255,222,199,0.3);
+      color:var(--peach);font-size:12px;letter-spacing:2px;text-transform:uppercase;
+      padding:5px 16px;border-radius:20px;margin-bottom:20px;
+    }
+    .hero-eyebrow svg{width:14px;height:14px;flex-shrink:0}
+    .hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(36px,6vw,64px);font-weight:700;
+      color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.5px;
+    }
+    .hero h1 em{color:var(--cream);font-style:italic}
+    .hero p{
+      font-size:16px;color:rgba(255,222,199,0.8);
+      max-width:520px;margin:0 auto 2rem;line-height:1.8;font-weight:300;
+    }
+    .hero-search{
+      display:flex;max-width:520px;margin:0 auto;
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,222,199,0.3);
+      border-radius:50px;overflow:hidden;backdrop-filter:blur(8px);
+    }
+    .hero-search input{
+      flex:1;background:transparent;border:none;outline:none;
+      padding:14px 20px;font-family:'Jost',sans-serif;font-size:14px;
+      color:#fff;
+    }
+    .hero-search input::placeholder{color:rgba(255,222,199,0.5)}
+    .hero-search button{
+      background:var(--cream);color:var(--brown);border:none;
+      padding:12px 24px;font-family:'Jost',sans-serif;font-size:14px;
+      font-weight:500;cursor:pointer;transition:background 0.2s;
+      border-radius:0 50px 50px 0;
+    }
+    .hero-search button:hover{background:#fff}
+
+    /*  STATS BAR  */
+    .statsbar{
+      background:var(--peach);
+      display:flex;justify-content:center;gap:0;
+      border-bottom:1px solid var(--bdr);
+    }
+    .sitem{
+      padding:1rem 2.5rem;text-align:center;
+      border-right:1px solid var(--bdr);
+    }
+    .sitem:last-child{border:none}
+    .sval{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--brown)}
+    .slbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px;margin-top:1px}
+
+    /*  MAIN  */
+    .main{max-width:1140px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+
+    /*  FILTER BAR  */
+    .filterbar{
+      display:flex;align-items:center;gap:10px;
+      margin-bottom:2rem;flex-wrap:wrap;
+    }
+    .filter-search{flex:1;min-width:220px;position:relative}
+    .filter-search input{
+      width:100%;background:var(--white);
+      border:1px solid var(--bdr2);color:var(--text);
+      font-family:'Jost',sans-serif;font-size:14px;
+      padding:11px 16px 11px 42px;
+      border-radius:var(--rsm);outline:none;
+      transition:border-color 0.2s;
+    }
+    .filter-search input:focus{border-color:var(--mauve)}
+    .filter-search input::placeholder{color:var(--text3)}
+    .filter-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3)}
+    select{
+      background:var(--white);border:1px solid var(--bdr2);
+      color:var(--text2);font-family:'Jost',sans-serif;font-size:13px;
+      padding:11px 14px;border-radius:var(--rsm);outline:none;cursor:pointer;
+    }
+    select:focus{border-color:var(--mauve)}
+
+    /*  GENRE PILLS  */
+    .genres{display:flex;gap:8px;margin-bottom:2rem;flex-wrap:wrap}
+    .genre{
+      padding:6px 16px;border-radius:20px;
+      border:1px solid var(--bdr2);font-size:13px;
+      cursor:pointer;color:var(--text2);background:var(--white);
+      font-family:'Jost',sans-serif;transition:all 0.18s;
+      display:inline-flex;align-items:center;gap:6px;
+    }
+    .genre:hover{border-color:var(--mauve);color:var(--mauve)}
+    .genre.on{background:var(--mauve);color:#fff;border-color:var(--mauve)}
+    .genre svg{width:14px;height:14px;flex-shrink:0;transition:all 0.18s}
+    .genre:not(.on) svg{fill:var(--text2);stroke:var(--text2)}
+    .genre:hover:not(.on) svg{fill:var(--mauve);stroke:var(--mauve)}
+    .genre.on svg{fill:#fff;stroke:#fff}
+
+    /*  SECTION TITLE  */
+    .sec-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:6px}
+    .sec-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--brown);letter-spacing:-0.3px}
+    .sec-count{font-size:13px;color:var(--text3)}
+
+    /*  BOOK GRID  */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+
+    .book{
+      background:var(--white);border:1px solid var(--bdr);
+      border-radius:var(--r);overflow:hidden;
+      transition:box-shadow 0.25s,transform 0.25s;
+      animation:up 0.4s ease both;
+    }
+    .book:hover{box-shadow:0 8px 32px rgba(73,49,41,0.12);transform:translateY(-4px)}
+    @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+    /* book cover */
+    .cover{
+      height:210px;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;background:var(--peach);
+    }
+    .cover img{
+      width:100%;height:100%;object-fit:cover;position:relative;z-index:1;
+    }
+    .cover-spine{
+      position:absolute;left:0;top:0;bottom:0;width:14px;
+      background:rgba(0,0,0,0.15);z-index:2;
+    }
+    .cover-id{
+      position:absolute;bottom:8px;right:10px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:11px;color:rgba(255,255,255,0.7);
+      background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:4px;
+      letter-spacing:1px;z-index:2;
+    }
+
+    /* book info */
+    .binfo{padding:1rem 1.1rem 1.1rem}
+    .bgenre{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--mauve);font-weight:500;margin-bottom:5px}
+    .btitle{
+      font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;
+      color:var(--brown);line-height:1.35;margin-bottom:5px;
+      text-transform:capitalize;
+      display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .bauthor{font-size:12px;color:var(--text2);margin-bottom:10px}
+    .bauthor span{color:var(--mauve);font-weight:500}
+    .bdesc{font-size:12px;color:var(--text3);line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+    /* action buttons */
+    .bactions{display:flex;gap:8px}
+    .btn-detail{
+      flex:1;background:var(--peach);color:var(--brown);
+      border:none;padding:8px 0;border-radius:var(--rsm);
+      font-family:'Jost',sans-serif;font-size:12px;font-weight:500;
+      cursor:pointer;transition:background 0.2s;
+      display:inline-flex;align-items:center;justify-content:center;gap:5px;
+    }
+    .btn-detail svg{width:14px;height:14px;fill:var(--brown);flex-shrink:0}
+    .btn-detail:hover{background:var(--cream)}
+    .btn-yt{
+      background:var(--mauve);color:#fff;
+      border:none;width:36px;height:36px;border-radius:var(--rsm);
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background 0.2s;flex-shrink:0;
+      text-decoration:none;
+    }
+    .btn-yt:hover{background:var(--brown)}
+    .btn-yt svg{width:16px;height:16px;fill:#fff}
+
+    /* LOADING / EMPTY  */
+    .loading{text-align:center;padding:5rem 2rem;color:var(--text3);font-size:14px}
+    .spin{
+      width:32px;height:32px;border:2px solid var(--bdr2);
+      border-top-color:var(--mauve);border-radius:50%;
+      animation:spin 0.8s linear infinite;margin:0 auto 1rem;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .empty{padding:4rem;text-align:center;color:var(--text3);font-size:14px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .empty svg{width:40px;height:40px;opacity:0.5}
+
+    /*  MODAL */
+    .overlay{
+      display:none;position:fixed;inset:0;
+      background:rgba(46,31,24,0.55);z-index:200;
+      align-items:center;justify-content:center;
+      padding:1rem;backdrop-filter:blur(4px);
+    }
+    .overlay.open{display:flex}
+    .modal{
+      background:var(--white);border:1px solid var(--bdr2);
+      border-radius:var(--r);width:min(540px,100%);
+      max-height:88vh;overflow-y:auto;
+      position:relative;animation:up 0.25s ease;
+    }
+    .modal-cover{
+      height:250px;display:flex;align-items:center;justify-content:center;
+      position:relative;background:var(--peach);overflow:hidden;
+    }
+    .modal-cover img{
+      width:100%;height:100%;object-fit:cover;position:relative;z-index:1;
+    }
+    .modal-spine{position:absolute;left:0;top:0;bottom:0;width:18px;background:rgba(0,0,0,0.15);z-index:2}
+    .modal-body{padding:1.5rem}
+    .modal-close{
+      position:absolute;top:12px;right:14px;z-index:10;
+      background:rgba(73,49,41,0.35);border:none;color:#fff;
+      width:30px;height:30px;border-radius:50%;font-size:14px;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background 0.2s;
+    }
+    .modal-close:hover{background:var(--brown)}
+    .modal-close svg{width:14px;height:14px}
+    .modal-genre{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mauve);margin-bottom:8px;font-weight:500}
+    .modal-title{
+      font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;
+      color:var(--brown);line-height:1.2;margin-bottom:6px;text-transform:capitalize;
+    }
+    .modal-author{font-size:13px;color:var(--text2);margin-bottom:16px}
+    .modal-author span{color:var(--mauve);font-weight:500}
+    .modal-divider{height:1px;background:var(--bdr);margin:16px 0}
+    .modal-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px}
+    .modal-meta{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+    .meta-pill{
+      background:var(--peach);color:var(--brown);
+      font-size:12px;padding:4px 12px;border-radius:20px;font-weight:500;
+      display:inline-flex;align-items:center;gap:5px;
+    }
+    .meta-pill svg{width:13px;height:13px;flex-shrink:0}
+    .modal-actions{display:flex;gap:10px}
+    .mbtn-read{
+      flex:1;background:var(--mauve);color:#fff;border:none;
+      padding:12px 0;border-radius:var(--rsm);
+      font-family:'Jost',sans-serif;font-size:14px;font-weight:500;cursor:pointer;
+      transition:background 0.2s;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .mbtn-read svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+    .mbtn-read:hover{background:var(--brown)}
+    .mbtn-yt{
+      display:flex;align-items:center;gap:8px;
+      background:#ff0000;color:#fff;border:none;
+      padding:12px 20px;border-radius:var(--rsm);
+      font-family:'Jost',sans-serif;font-size:14px;font-weight:500;cursor:pointer;
+      transition:background 0.2s;text-decoration:none;
+    }
+    .mbtn-yt:hover{background:#cc0000}
+    .mbtn-yt svg{width:18px;height:18px;fill:#fff;flex-shrink:0}
+
+    /* FOOTER */
+    footer{
+      background:var(--brown);color:rgba(255,222,199,0.5);
+      text-align:center;padding:1.5rem;font-size:13px;
+    }
+    footer span{color:var(--pink)}
+
+    @media(max-width:600px){
+      nav{padding:0 1.2rem}
+      .hero{padding:3.5rem 1.2rem 3rem}
+      .statsbar{flex-wrap:wrap}
+      .sitem{flex:1;min-width:120px;padding:0.8rem 1rem}
+      .main{padding:1.5rem 1rem 4rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" stroke="#fde5b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 2v14" stroke="#fde5b0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    Pustaka<span>Digital</span>
+  </div>
+  <div class="nav-right">
+    <button class="nav-btn active">Beranda</button>
+    <button class="nav-btn">Koleksi</button>
+    <button class="nav-btn">Tentang</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <svg viewBox="0 0 24 24" fill="var(--peach)" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.09 6.26L20.18 9l-5 4.27L16.82 20 12 16.77 7.18 20l1.64-6.73L3.82 9l6.09-.74L12 2z"/></svg>
+    Perpustakaan Digital Indonesia
+  </div>
+  <h1>Temukan <em>Buku</em> yang<br>Menginspirasimu</h1>
+  <p>Jelajahi karya sastra dan buku terbaik Indonesia. Baca sinopsis, temukan pengarang favoritmu, dan tonton ulasan di YouTube — semua dari satu tempat.</p>
+  <div class="hero-search">
+    <input type="text" id="hero-q" placeholder="Cari judul buku atau pengarang…" oninput="syncSearch(this.value)"/>
+    <button onclick="syncSearch(document.getElementById('hero-q').value)">Cari</button>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="statsbar">
+  <div class="sitem"><div class="sval" id="s-buku">—</div><div class="slbl">Judul Buku</div></div>
+  <div class="sitem"><div class="sval" id="s-penulis">—</div><div class="slbl">Penulis</div></div>
+  <div class="sitem"><div class="sval" id="s-genre">8</div><div class="slbl">Genre</div></div>
+  <div class="sitem"><div class="sval">Gratis</div><div class="slbl">Akses</div></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- Filter -->
+  <div class="filterbar">
+    <div class="filter-search">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="q" placeholder="Cari judul atau sinopsis…" oninput="render()"/>
+    </div>
+    <select id="sort" onchange="render()">
+      <option value="">Urutan default</option>
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+      <option value="id">Terbaru</option>
+    </select>
+  </div>
+
+  <!-- Genre pills -->
+  <div class="genres" id="genres">
+    <button class="genre on" onclick="setGenre('',this)">Semua Genre</button>
+    <button class="genre" onclick="setGenre('Fiksi Ilmiah',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+      Fiksi Ilmiah
+    </button>
+    <button class="genre" onclick="setGenre('Sejarah',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>
+      Sejarah
+    </button>
+    <button class="genre" onclick="setGenre('Psikologi',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5 3.5 7.5S12 22 12 22s2-3 3.5-5.5S19 12 19 9a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Psikologi
+    </button>
+    <button class="genre" onclick="setGenre('Filsafat',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-3.6 13 3.5 3.5 0 0 1 1.6 3h4a3.5 3.5 0 0 1 1.6-3A7 7 0 0 0 12 2z"/></svg>
+      Filsafat
+    </button>
+    <button class="genre" onclick="setGenre('Petualangan',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="none" opacity="0.3"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      Petualangan
+    </button>
+    <button class="genre" onclick="setGenre('Biografi',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Biografi
+    </button>
+    <button class="genre" onclick="setGenre('Sains',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16.5h10"/></svg>
+      Sains
+    </button>
+    <button class="genre" onclick="setGenre('Sastra',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+      Sastra
+    </button>
+  </div>
+
+  <div class="sec-row">
+    <div class="sec-title">Koleksi Buku Terpopuler</div>
+    <div class="sec-count" id="count-lbl"></div>
+  </div>
+
+  <div id="content"><div class="loading"><div class="spin"></div>Memuat koleksi buku…</div></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Data Buku Relevan · Dibuat untuk Workshop UI Desain
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div id="modal-cover"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* SVG ICON LIBRARY  */
+const SVG_ICONS = {
+  /* Book open - for Detail button */
+  bookOpen: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+
+  /* Book open white - for modal read button */
+  bookOpenWhite: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+
+  /* Star - for rating */
+  star: `<svg viewBox="0 0 24 24" fill="var(--brown)" stroke="none"><path d="M12 2l2.09 6.26L20.18 9l-5 4.27L16.82 20 12 16.77 7.18 20l1.64-6.73L3.82 9l6.09-.74L12 2z"/></svg>`,
+
+  /* File/pages - for page count */
+  pages: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+
+  /* Calendar - for year */
+  calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--brown)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+
+  /* Empty inbox - for empty state */
+  emptyInbox: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>`,
+};
+
+/* DATA REAL LOKAL (Karya-karya Indonesia dan Sampul Aslinya) */
+/* DATA REAL LOKAL (Dengan Link Wikipedia/Data URI yang pasti muncul) */
+const bukuData = [
+  {
+    "id": 1,
+    "title": "Bumi Manusia",
+    "author": "Pramoedya Ananta Toer",
+    "genre": "Sastra",
+    "description": "Buku pertama dari Tetralogi Buru yang menceritakan perjalanan Minke, seorang pribumi yang bersekolah di HBS, serta kisah cintanya dengan Annelies dan perjuangannya melawan ketidakadilan kolonial Belanda.",
+    "coverUrl": "https://media.suara.com/pictures/970x544/2024/02/01/60790-novel-bumi-manusia-goodreads.jpg",
+    "year": 1980,
+    "pages": 535,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "title": "Supernova: Kesatria, Putri, dan Bintang Jatuh",
+    "author": "Dee Lestari",
+    "genre": "Fiksi Ilmiah",
+    "description": "Novel fiksi ilmiah yang menggabungkan romansa dengan konsep sains dan spiritualitas, bercerita tentang sepasang gay yang menulis cerita tentang Kesatria.",
+    "coverUrl": "https://down-id.img.susercontent.com/file/id-11134207-23020-bu778vsjusnv8a",
+    "year": 2001,
+    "pages": 320,
+    "rating": 4.5
+  },
+  {
+    "id": 3,
+    "title": "Gadis Kretek",
+    "author": "Ratih Kumala",
+    "genre": "Sejarah",
+    "description": "Sebuah penelusuran sejarah pabrik kretek di Indonesia pada masa lalu melalui pencarian sosok Jasiyah oleh tiga bersaudara yang sedang memenuhi permintaan terakhir ayah mereka.",
+    "coverUrl": "https://cdn.gramedia.com/uploads/items/9789792281415_Gadis_Kretek_.jpg",
+    "year": 2012,
+    "pages": 274,
+    "rating": 4.4
+  },
+  {
+    "id": 4,
+    "title": "Bumi",
+    "author": "Tere Liye",
+    "genre": "Petualangan",
+    "description": "Kisah petualangan Raib, seorang gadis remaja 15 tahun yang memiliki kekuatan bisa menghilang, dan perjalanannya menjelajahi dunia paralel.",
+    "coverUrl": "https://cdn.gramedia.com/uploads/items/9786020332956_Bumi-New-Cover.jpg",
+    "year": 2014,
+    "pages": 440,
+    "rating": 4.6
+  },
+  {
+    "id": 5,
+    "title": "Filosofi Teras",
+    "author": "Henry Manampiring",
+    "genre": "Filsafat",
+    "description": "Buku yang mengenalkan filsafat Stoisisme (Stoic) kuno sebagai panduan moral dan mental untuk mengatasi kekhawatiran dan stres di masa kini yang serba cepat.",
+    "coverUrl": "https://cdn.gramedia.com/uploads/picture_meta/2023/11/27/kjf6cgigkomf6sy9o5qauu.jpg",
+    "year": 2018,
+    "pages": 312,
+    "rating": 4.8
+  },
+  {
+    "id": 6,
+    "title": "Habibie & Ainun",
+    "author": "B.J. Habibie",
+    "genre": "Biografi",
+    "description": "Kisah nyata cinta sejati antara Presiden ketiga Republik Indonesia, B.J. Habibie, dengan sang istri, Hasri Ainun Besari, dari awal perjumpaan hingga maut memisahkan.",
+    "coverUrl": "https://tse4.mm.bing.net/th/id/OIP.RPluSqmpXR3N3ilaKX4-iwHaD4?rs=1&pid=ImgDetMain&o=7&rm=3",
+    "year": 2010,
+    "pages": 323,
+    "rating": 4.7
+  },
+  {
+    "id": 7,
+    "title": "Insecurity is My Middle Name",
+    "author": "Alvi Syahrin",
+    "genre": "Psikologi",
+    "description": "Buku self-improvement yang membahas berbagai perasaan tidak aman (insecurity) pada remaja dan dewasa muda, serta cara berdamai dengan kekurangan diri sendiri.",
+    "coverUrl": "https://cf.shopee.co.id/file/fb539caceeaad2e2897514b0c731dee6",
+    "year": 2021,
+    "pages": 264,
+    "rating": 4.5
+  },
+  {
+    "id": 8,
+    "title": "Laut Bercerita",
+    "author": "Leila S. Chudori",
+    "genre": "Sejarah",
+    "description": "Novel yang mengangkat tema persahabatan, cinta, pengkhianatan, dan keluarga, berlatar belakang masa Orde Baru dan menceritakan perjuangan serta hilangnya para aktivis mahasiswa 1998.",
+    "coverUrl": "https://cdn.gramedia.com/uploads/items/9786024246945_Laut-Bercerita.jpg",
+    "year": 2017,
+    "pages": 379,
+    "rating": 4.9
+  },
+  {
+    "id": 9,
+    "title": "Laskar Pelangi",
+    "author": "Andrea Hirata",
+    "genre": "Sastra",
+    "description": "Kisah inspiratif tentang sepuluh anak dari keluarga miskin di Pulau Belitung yang penuh semangat bersekolah di SD Muhammadiyah.",
+    "coverUrl": "https://upload.wikimedia.org/wikipedia/id/8/8e/Laskar_pelangi_sampul.jpg",
+    "year": 2005,
+    "pages": 529,
+    "rating": 4.7
+  },
+  {
+    "id": 10,
+    "title": "Cantik Itu Luka",
+    "author": "Eka Kurniawan",
+    "genre": "Sastra",
+    "description": "Sebuah novel surealis mengenai sejarah kelam Indonesia yang diceritakan melalui kehidupan seorang pelacur cantik bernama Ayu Dewi.",
+    "coverUrl": "https://leksikabookstore.com/uploads/6359e4e086204_20221027085440-1.jpg",
+    "year": 2002,
+    "pages": 479,
+    "rating": 4.6
+  }
+];
+
+/* YouTube search links per genre */
+const YT = {
+  'Fiksi Ilmiah': 'https://www.youtube.com/results?search_query=resensi+buku+fiksi+ilmiah+indonesia',
+  'Sejarah':      'https://www.youtube.com/results?search_query=resensi+buku+sejarah+indonesia',
+  'Psikologi':    'https://www.youtube.com/results?search_query=resensi+buku+psikologi+terbaik',
+  'Filsafat':     'https://www.youtube.com/results?search_query=resensi+buku+filsafat+indonesia',
+  'Petualangan':  'https://www.youtube.com/results?search_query=resensi+buku+petualangan+indonesia',
+  'Biografi':     'https://www.youtube.com/results?search_query=resensi+buku+biografi+tokoh+indonesia',
+  'Sains':        'https://www.youtube.com/results?search_query=resensi+buku+sains+populer',
+  'Sastra':       'https://www.youtube.com/results?search_query=resensi+buku+sastra+indonesia',
+};
+
+const YTICON = `<svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.13-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.37.55A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.13 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.37-.55a3.02 3.02 0 0 0 2.13-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.75 15.52V8.48L15.87 12l-6.12 3.52z"/></svg>`;
+
+/* STATE  */
+let curGenre = '';
+
+/* LOAD */
+function load() {
+  const uniqAuthors = new Set(bukuData.map(b => b.author)).size;
+  document.getElementById('s-buku').textContent = bukuData.length;
+  document.getElementById('s-penulis').textContent = uniqAuthors;
+  render();
+}
+
+/* SYNC HERO SEARCH */
+function syncSearch(v) {
+  const el = document.getElementById('q');
+  el.value = v;
+  render();
+  document.querySelector('.main').scrollIntoView({behavior:'smooth'});
+}
+
+/* GENRE FILTER */
+function setGenre(g, el) {
+  curGenre = g;
+  document.querySelectorAll('.genre').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+/* RENDER */
+function render() {
+  const q  = document.getElementById('q').value.toLowerCase().trim();
+  const s  = document.getElementById('sort').value;
+  const el = document.getElementById('content');
+
+  let books = [...bukuData];
+
+  /* filter genre */
+  if (curGenre) books = books.filter(b => b.genre === curGenre);
+
+  /* filter search */
+  if (q) books = books.filter(b =>
+    b.title.toLowerCase().includes(q) ||
+    b.description.toLowerCase().includes(q)  ||
+    b.author.toLowerCase().includes(q)
+  );
+
+  /* sort */
+  if (s === 'az')  books.sort((a,b) => a.title.localeCompare(b.title));
+  if (s === 'za')  books.sort((a,b) => b.title.localeCompare(a.title));
+  if (s === 'id')  books.sort((a,b) => b.id - a.id);
+
+  document.getElementById('count-lbl').textContent = books.length + ' buku ditemukan';
+
+  if (!books.length) {
+    el.innerHTML = `<div class="empty">${SVG_ICONS.emptyInbox}<span>Tidak ada buku yang cocok dengan pencarianmu.</span></div>`;
+    return;
+  }
+
+  el.innerHTML = `<div class="grid">${books.map((b,i) => bookCard(b,i)).join('')}</div>`;
+}
+
+/* BOOK CARD HTML  */
+function bookCard(b, i) {
+  const ytUrl = YT[b.genre] || `https://www.youtube.com/results?search_query=resensi+buku+${encodeURIComponent(b.title)}`;
+  return `
+  <div class="book" style="animation-delay:${Math.min(i,15)*0.04}s">
+    <div class="cover">
+      <div class="cover-spine"></div>
+      <img src="${b.coverUrl}" alt="Sampul ${b.title}" />
+      <div class="cover-id">No.${b.id}</div>
+    </div>
+    <div class="binfo">
+      <div class="bgenre">${b.genre}</div>
+      <div class="btitle">${b.title}</div>
+      <div class="bauthor">oleh <span>${b.author}</span></div>
+      <div class="bdesc">${b.description}</div>
+      <div class="bactions">
+        <button class="btn-detail" onclick="openModal(${b.id})">${SVG_ICONS.bookOpen} Detail</button>
+        <a class="btn-yt" href="${ytUrl}" target="_blank" rel="noopener" title="Lihat di YouTube">${YTICON}</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* MODAL  */
+function openModal(id) {
+  const p = bukuData.find(x => x.id === id);
+  if (!p) return;
+
+  const ytUrl = YT[p.genre] || `https://www.youtube.com/results?search_query=resensi+buku+${encodeURIComponent(p.title)}`;
+
+  document.getElementById('modal-cover').innerHTML = `
+    <div class="modal-cover">
+      <div class="modal-spine"></div>
+      <img src="${p.coverUrl}" alt="Sampul ${p.title}" />
+    </div>`;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-genre">${p.genre}</div>
+    <div class="modal-title">${p.title}</div>
+    <div class="modal-author">Ditulis oleh <span>${p.author}</span></div>
+    <div class="modal-meta">
+      <span class="meta-pill">${SVG_ICONS.star} ${p.rating}</span>
+      <span class="meta-pill">${SVG_ICONS.pages} ${p.pages} halaman</span>
+      <span class="meta-pill">${SVG_ICONS.calendar} ${p.year}</span>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="modal-desc">${p.description}</div>
+    <div class="modal-divider"></div>
+    <div class="modal-actions">
+      <!-- Mengirimkan ID buku ke fungsi startReading -->
+      <button class="mbtn-read" onclick="startReading(${p.id})">
+        ${SVG_ICONS.bookOpenWhite} Mulai Membaca
+      </button>
+      <a class="mbtn-yt" href="${ytUrl}" target="_blank" rel="noopener">
+        ${YTICON} Lihat di YouTube
+      </a>
+    </div>`;
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('overlay'))
+    document.getElementById('overlay').classList.remove('open');
+}
+
+/* FITUR MEMBACA ─ */
+function startReading(id) {
+  // Cari data buku berdasarkan ID
+  const p = bukuData.find(x => x.id === id);
+  if (!p) return;
+  
+  // Memunculkan alert berisi sinopsis lengkap buku
+  alert(`Judul: ${p.title}\nOleh: ${p.author}\n\nSINOPSIS:\n${p.description}`);
+}
+
+load();
+</script>
+</body>
+</html>

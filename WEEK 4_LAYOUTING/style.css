@@ -178,6 +178,14 @@ a:hover {
   padding: 0 40px;
 }
 
+/* Stat Row — Flexbox */
+.stat-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
 /* =====================================================
    MAIN CONTENT
    ===================================================== */
@@ -219,13 +227,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Stat Row — Flexbox */
-.stat-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 24px;
-}
 
 .stat-card {
   flex: 1;
