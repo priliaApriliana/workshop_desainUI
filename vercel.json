@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/WEEK 3_JAVASCRIPT/$1"
+    }
+  ]
+}
