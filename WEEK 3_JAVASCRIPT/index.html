@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -12,25 +12,37 @@
         <header class="form-header">
         <h1>Form Pendaftaran Tuban's Event</h1>
         <p>Silakan isi form di bawah ini.</p>
+
+        <div class="event-info">
+            <p class="event-desc">
+                Tuban Creative Festival 2026 adalah ajang lomba kreatif untuk mahasiswa dan pelajar
+                di bidang desain, coding, fotografi, dan public speaking.
+            </p>
+            <ul class="event-meta">
+                <li>&#128197; Tanggal Event: 14 - 16 Agustus 2026</li>
+                <li>&#128205; Lokasi: Alun-Alun Tuban </li>
+                <li>&#127942; Benefit: Sertifikat nasional, mentoring industri, dan total hadiah jutaan rupiah</li>
+            </ul>
+        </div>
         </header>
 
         <form id="registrationForm" novalidate>
             <div class="form-group">
                 <label for="nama">Nama Lengkap</label>
                 <input type="text" id="nama" placeholder="Masukkan nama lengkap kamu" />
-                <span class="error" id="errNama">⚠ Nama tidak boleh kosong!</span>
+                <span class="error" id="errNama">&#9888; Nama tidak boleh kosong!</span>
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" placeholder="contoh@email.com" />
-                <span class="error" id="errEmail">⚠ Format email tidak valid!</span>
+                <span class="error" id="errEmail">&#9888; Format email tidak valid!</span>
             </div>
 
             <div class="form-group">
                 <label for="wa">Nomor Telepone / WA Aktif</label>
                 <input type="number" id="wa" placeholder="Masukkan nomor telepon atau WA aktif kamu" />
-                <span class="error" id="errWa">⚠ Nomor telepon / WA aktif tidak boleh kosong!</span>
+                <span class="error" id="errWa">&#9888; Nomor telepon / WA aktif tidak boleh kosong!</span>
             </div>
 
             <div class="form-group">
@@ -40,7 +52,7 @@
                 <label><input type="radio" name="gender" value="Perempuan" /> Perempuan</label>
                 <label><input type="radio" name="gender" value="Lainnya" /> Lainnya</label>
                 </div>
-                <span class="error" id="errGender">⚠ Pilih jenis kelamin!</span>
+                <span class="error" id="errGender">&#9888; Pilih jenis kelamin!</span>
             </div>
 
             <div class="form-group">
@@ -53,11 +65,11 @@
                 <option value="Debat">Debat/Public Speaking</option>
                 <option value="Karya Tulis Ilmiah">Karya Tulis Ilmiah</option>
                 </select>
-                <span class="error" id="errKategori">⚠ Pilih kategori lomba terlebih dahulu!</span>
+                <span class="error" id="errKategori">&#9888; Pilih kategori lomba terlebih dahulu!</span>
             </div>
 
             <div class="form-group">
-                <label>Keahlian yang dimiliki (boleh pilih lebih dari satu)</label>
+                <label>Bidang Keahlian yang Relevan dengan Lomba</label>
                 <div class="checkbox-group">
                 <label><input type="checkbox" name="hobi" value="Desain" /> Desain</label>
                 <label><input type="checkbox" name="hobi" value="Coding" /> Coding</label>
@@ -68,8 +80,8 @@
             </div>
 
             <div class="form-group">
-                <label for="pesan">Pesan / Motivasi Mengikuti Lomba</label>
-                <textarea id="pesan" placeholder="Ceritakan sedikit tentang dirimu..."></textarea>
+                <label for="pesan">Alasan kamu tertarik pada kategori lomba yang dipilih</label>
+                <textarea id="pesan" placeholder="Ceritakan ..."></textarea>
             </div>
 
             <button type="submit" class="btn-submit">Kirim Data</button>
@@ -83,9 +95,12 @@
     </div>
 
     <footer>
-        <p>Modul 3 – JavaScript Basic &nbsp;|&nbsp; Website Development Exercise</p>
+        <p>Modul 3 - JavaScript Basic &nbsp;|&nbsp; Website Development Exercise</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+

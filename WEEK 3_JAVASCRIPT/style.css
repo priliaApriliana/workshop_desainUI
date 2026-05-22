@@ -1,4 +1,4 @@
-*, *::before, *::after { 
+﻿*, *::before, *::after { 
   box-sizing: border-box; 
   margin: 0; 
   padding: 0; 
@@ -36,6 +36,37 @@ body {
   color: #598099;
   font-weight: 500;
 }
+
+.event-info {
+  margin-top: 18px;
+  background: linear-gradient(135deg, rgba(255, 241, 242, 0.9) 0%, rgba(237, 189, 188, 0.35) 100%);
+  border: 1px solid rgba(237, 189, 188, 0.55);
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.event-desc {
+  font-size: 0.9rem;
+  color: #313E57;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.event-meta {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  padding-left: 0;
+}
+
+.event-meta li {
+  font-size: 0.86rem;
+  color: #313E57;
+  line-height: 1.4;
+}
+
 
 /* ===== CARD WRAPPER ===== */
 .card {
@@ -244,7 +275,7 @@ footer {
   font-weight: 500;
 }
 
-/* ===== RESPONSIVE — MOBILE ===== */
+/* ===== RESPONSIVE â€” MOBILE ===== */
 @media (max-width: 600px) {
   .form-header h1 { 
     font-size: 1.5rem; 
@@ -268,3 +299,4 @@ footer {
     gap: 10px; 
   }
 }
+
