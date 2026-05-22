@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/WEEK 3_JAVASCRIPT/$1"
+      "destination": "/WEEK 4_LAYOUTING/$1"
     }
   ]
 }

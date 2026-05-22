@@ -1,5 +1,6 @@
 
   
+    // Scroll Reveal & Hamburger Menu
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
